@@ -347,22 +347,11 @@ footer {
 }
 
 .is-sticky header a {
-  
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.is-sticky h5 {
+  background: white;
+  padding: 12px 0;
+  margin: 0;
+}
