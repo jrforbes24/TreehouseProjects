@@ -5,17 +5,11 @@
 // 1. Create a web server
 
 const http = require('http');
-
 const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((request, response) => {
-  response.statusCode = 200;
-  response.setHeader('Content-Type', 'text/plain');
-  setInterval(function(){
-      response.write(new Date() + "\n");
- }, 1000);
-  //response.end('Hello World\n');
+  home_route(request, response);
 });
 
 server.listen(port, hostname, () => {
@@ -24,11 +18,19 @@ server.listen(port, hostname, () => {
 
 
 // 2. Handle the HTTP route  GET / and POST / i.e. Home
+function home_route(request, response){
     // if url = "/" && GET
+    if(request.url === "/"){
         // show search
+        response.statusCode = 200;
+        response.setHeader('Content-Type', 'text/plain');
+        response.write("Header\n");
+        response.write("Search\n");
+        response.end("Footer\n");
+    }
     // if url = "/" && POST
         // redirect to username
-
+}
 // 3. Handle the HTTP route GET /:username i.e. /chalkers
     // if url == "/...."
         //get json from Treehouse
