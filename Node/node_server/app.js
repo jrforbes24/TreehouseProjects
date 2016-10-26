@@ -1,3 +1,4 @@
+var router = require('./router.js');
 // Problem: we need a simple way to look at a user's badge cound and JavaScript from a web browser.
 
 // Solution: Use nodejs to perform the profile look ups and server our templates via http
@@ -9,7 +10,8 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((request, response) => {
-  home_route(request, response);
+  router.home(request, response);
+  router.user(request, response);
 });
 
 server.listen(port, hostname, () => {
@@ -17,28 +19,7 @@ server.listen(port, hostname, () => {
 });
 
 
-// 2. Handle the HTTP route  GET / and POST / i.e. Home
-function home_route(request, response){
-    // if url = "/" && GET
-    if(request.url === "/"){
-        // show search
-        response.statusCode = 200;
-        response.setHeader('Content-Type', 'text/plain');
-        response.write("Header\n");
-        response.write("Search\n");
-        response.end("Footer\n");
-    }
-    // if url = "/" && POST
-        // redirect to username
-}
-// 3. Handle the HTTP route GET /:username i.e. /chalkers
-    // if url == "/...."
-        //get json from Treehouse
-            // on 'end'
-                // show profile
-            // on 'error'
-                // show error
 
-// 4. Function that handles the reading of files and merge in values
+// Function that handles the reading of files and merge in values
     // read from file and get history
         // merge values in to string
