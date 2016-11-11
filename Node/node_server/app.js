@@ -7,19 +7,15 @@ var router = require('./router.js');
 
 // Create a web server
 
-const https = require('https');
+const http = require('http');
 const hostname = '127.0.0.1';
 const port = 3000;
 
-const server = https.createServer((request, response) => {
+const server = http.createServer((request, response) => {
   router.home(request, response);
   router.user(request, response);
 });
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at https://${hostname}:${port}/`);
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
-
-// Function that handles the reading of files and merge in values
-    // read from file and get history
-        // merge values in to string
