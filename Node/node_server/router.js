@@ -1,20 +1,36 @@
 var Profile = require("./profile.js");
 var renderer = require("./renderer.js");
+var querystring = require("querystring");
+var commonHeaders = {'Content-Type', 'text/html'};
 
 // Handle the HTTP route  GET / and POST / i.e. Home
 function home(request, response){
     // if url = "/" && GET
     if(request.url === "/"){
         // show search
-        response.statusCode = 200;
-        response.setHeader('Content-Type', 'text/plain');
-        renderer.view("header", {}, response);
-        renderer.view("search", {}, response);
-        renderer.view("footer", {}, response);
-        response.end();
+        if(request.method.toLowerCase() === "get"){
+          response.statusCode = 200;
+          response.setHeader(commonHeaders);
+          renderer.view("header", {}, response);
+          renderer.view("search", {}, response);
+          renderer.view("footer", {}, response);
+          response.end();
+      }
+      else {
+        // if url = "/" && POST
+
+        // get the post data from body
+        request.on('data', function(postBody) {
+          // extract the username
+          var query = querystring.parse(postBody.toString());
+          response.write(query.username);
+          response.end();
+          // redirect to username
+        });
+
+      }
     }
-    // if url = "/" && POST
-        // redirect to username
+
 }
 // Handle the HTTP route GET /:username i.e. /chalkers
 function user(request, response){
@@ -22,7 +38,7 @@ function user(request, response){
     var username = request.url.replace('/', '');
     if(username.length > 0){
         response.statusCode = 200;
-        response.setHeader('Content-Type', 'text/plain');
+        response.setHeader(commonHeaders);
         renderer.view('header', {}, response);
         response.end();
         //get json from Treehouse
